@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Management;
-using System.Text.RegularExpressions;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ListPCI
@@ -19,25 +18,15 @@ namespace ListPCI
         /// <param name="e" />
         private void Pcilist_Load(object sender, EventArgs e)
         {
-            var connectionScope = new ManagementScope();
-            var serialQuery = new SelectQuery("SELECT * FROM Win32_PnPEntity");
-            var searcher = new ManagementObjectSearcher(connectionScope, serialQuery);
-            var dev = new Regex("DEV_.{4}");
-            var ven = new Regex("VEN_.{4}");
+            var provider = new PciProvider();
             try
             {
-                foreach (var item in searcher.Get())
-                {
-                    var deviceId = item["DeviceID"].ToString();
-                    if (deviceId.Contains("PCI"))
-                        ID_List.Items.Add("Device ID: " + dev.Match(deviceId).Value.Substring(4)
-                                          + ", Vendor ID: " + ven.Match(deviceId).Value.Substring(4) + "\t"
-                                          + item["Description"]);
-                }
+                foreach (var dev in provider.GetDevices())
+                    ID_List.Items.Add(dev[0].PadRight(100 - dev[0].Length) + "\t\t\t" + dev[1]);
             }
-            catch (ManagementException)
+            catch (FileNotFoundException ex)
             {
-                ID_List.Items.Add("Failed to get information from WMI");
+                ID_List.Items.Add(ex.Message);
             }
         }
     }

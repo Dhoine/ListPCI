@@ -40,14 +40,14 @@
             this.ID_List.ItemHeight = 16;
             this.ID_List.Location = new System.Drawing.Point(0, 0);
             this.ID_List.Name = "ID_List";
-            this.ID_List.Size = new System.Drawing.Size(947, 338);
+            this.ID_List.Size = new System.Drawing.Size(1116, 389);
             this.ID_List.TabIndex = 2;
             // 
-            // PCIlist
+            // Pcilist
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(947, 338);
+            this.ClientSize = new System.Drawing.Size(1116, 389);
             this.Controls.Add(this.ID_List);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Pcilist";
