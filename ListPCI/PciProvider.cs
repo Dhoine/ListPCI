@@ -26,21 +26,19 @@ namespace ListPCI
                 {
                     var deviceId = item["DeviceID"].ToString();
                     if (deviceId.Contains("PCI"))
-                        try
-                        {
-                            buffer.Add(SearchInFile(dev.Match(deviceId).Value.Substring(4).ToLower(),
-                                ven.Match(deviceId).Value.Substring(4).ToLower()));
-                        }
-                        catch (FileNotFoundException e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
+                        buffer.Add(SearchInFile(dev.Match(deviceId).Value.Substring(4).ToLower(),
+                            ven.Match(deviceId).Value.Substring(4).ToLower()));
                 }
             }
-            catch (ManagementException)
+            catch (ManagementException e)
             {
-                return null;
+                Console.WriteLine(e);
+                throw;
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
             return buffer;
         }

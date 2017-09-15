@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Management;
 using System.Windows.Forms;
 
 namespace ListPCI
@@ -27,6 +28,10 @@ namespace ListPCI
             catch (FileNotFoundException ex)
             {
                 ID_List.Items.Add(ex.Message);
+            }
+            catch (ManagementException)
+            {
+                ID_List.Items.Add("Error communicating with WMI");
             }
         }
     }
